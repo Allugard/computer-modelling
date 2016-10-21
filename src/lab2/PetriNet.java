@@ -42,6 +42,7 @@ public class PetriNet {
             if(nextNode.coresIsEmpty()) {
                 double timeExec=timeNow+timeGenerator.getTime(nextNode.getMu());
                 nextNode.addTask(firstNode.getTask(), timeExec);
+                nextNode.addTimeOfWork(timeNow,timeExec);
                 nodeWithTask.put(timeExec,nextNode);
             }else {
                 nextNode.addTaskToQueue(firstNode.getTask());
@@ -49,12 +50,16 @@ public class PetriNet {
             if(firstNode.queueIsEmpty()==false){
                 bufTime=timeNow+timeGenerator.getTime(firstNode.getMu());
                 firstNode.addTaskFromQueue(bufTime);
+                firstNode.addTimeOfWork(timeNow,bufTime);
                 nodeWithTask.put(bufTime,firstNode);
-
-
             }
-            System.out.println(firstNode+"   ->"+nextNode);
+           // System.out.println(firstNode+"   ->"+nextNode);
+        }
+        timeAll=nodeWithTask.get(nodeWithTask.lastKey()).getTask().getTimeEnded();
 
+        for (Node node:nodes) {
+            String s=node.toString()+"="+node.getWork(timeAll)+"%";
+            System.out.println(s);
         }
     }
 

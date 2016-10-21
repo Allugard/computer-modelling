@@ -11,14 +11,16 @@ public class Node {
     private List <Core> cores;
     private double mu;
     private List <Task> queue;
+    private double timeOfWork;
     private static TimeGenerator timeGenerator;
 
     public Node(String name, double mu, Core ... cores) {
         this.name = name;
-        this.wiringNodes = new HashMap<>();
+        this.wiringNodes = new TreeMap<>();
         this.cores = Arrays.asList(cores);
         this.mu = mu;
         this.queue = new ArrayList<>();
+        timeOfWork=0;
     }
 
     public void addWiringNode(double p, Node node){
@@ -54,6 +56,7 @@ public class Node {
                 break;
             }
         }
+     //   System.out.println(d);
         Node node=wiringNodes.get(d);
        return node;
     }
@@ -103,5 +106,12 @@ public class Node {
 
     public void addTaskToQueue(Task task) {
         queue.add(task);
+    }
+
+    public void addTimeOfWork(double timeNow, double timeExec) {
+        timeOfWork=timeOfWork+timeExec-timeNow;
+    }
+    public double getWork(double timeAll){
+        return timeOfWork/timeAll/cores.size();
     }
 }
