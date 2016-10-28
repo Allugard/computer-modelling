@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) {
         PetriNet petriNet=new PetriNet();
         int numberTask =100000;
-        Node cp=new Node("CP",1,new Core(),new Core(),new Core());
+        Node cp=new Node("CPU",1,new Core(),new Core(),new Core());
         Node nBridge=new Node("nBridge",1,new Core());
-        Node op=new Node("OP",0.05,new Core());
-        Node gp=new Node("GP",0.1,new Core());
+        Node op=new Node("RAM",0.05,new Core());
+        Node gp=new Node("GPU",0.1,new Core());
         Node sBridge=new Node("sBridge",0.2,new Core());
         Node nA=new Node("Network Adapter",0.01,new Core());
         Node cmd=new Node("CMD",0.01,new Core());
