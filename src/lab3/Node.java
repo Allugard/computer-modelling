@@ -1,6 +1,5 @@
 package lab3;
 
-import lab2.Core;
 import lab2.Task;
 import lab2.TimeGenerator;
 
@@ -12,37 +11,25 @@ import java.util.*;
 public class Node {
     private String name;
     private Map<Double, Node> wiringNodes;
-    private List <Core> cores;
+    private int cores;
     private double mu;
     private List <Task> queue;
-    private double timeOfWork;
-    private static TimeGenerator timeGenerator;
 
-    public Node(String name, double mu, Core ... cores) {
+    public Node(String name, double mu, int cores) {
         this.name = name;
         this.wiringNodes = new TreeMap<>();
-        this.cores = Arrays.asList(cores);
         this.mu = mu;
         this.queue = new ArrayList<>();
-        timeOfWork=0;
+        this.cores=cores;
     }
+
+
 
     public void addWiringNode(double p, Node node){
         wiringNodes.put(p,node);
     }
     public void addTask(Task task, double time){
-        boolean isEmpty=false;
-        for (Core core:cores) {
-            if(core.isEmpty()){
-                core.setTask(task);
-                task.setTimeEnded(time);
-                isEmpty=true;
-                break;
-            }
-        }
-        if(isEmpty==false){
-            queue.add(task);
-        }
+
     }
 
     public double getMu(){
@@ -60,28 +47,11 @@ public class Node {
                 break;
             }
         }
-     //   System.out.println(d);
         Node node=wiringNodes.get(d);
        return node;
     }
     public Task getTask(){
-        List <Double> times=new ArrayList<>();
-        Task task=null;
-        for (Core core:cores) {
-            if (core.isEmpty()==false){
-                times.add(core.getTask().getTimeEnded());
-            }
-        }
-        Collections.sort(times);
-        for (Core core: cores) {
-            if (core.isEmpty() == false) {
-                if (times.get(0) == core.getTask().getTimeEnded()) {
-                    task = core.getTask();
-                    core.removeTask();
-                }
-            }
-        }
-        return task;
+        return null;
     }
     public boolean queueIsEmpty(){
         return queue.isEmpty();
@@ -98,24 +68,16 @@ public class Node {
                 '}';
     }
 
-    public boolean coresIsEmpty() {
-        boolean isEmpty=false;
-        for (Core core:cores) {
-            if(core.isEmpty()){
-                isEmpty=true;
-            }
-        }
-        return isEmpty;
-    }
 
     public void addTaskToQueue(Task task) {
         queue.add(task);
     }
 
-    public void addTimeOfWork(double timeNow, double timeExec) {
-        timeOfWork=timeOfWork+timeExec-timeNow;
+    public int getCores() {
+        return cores;
     }
-    public double getWork(double timeAll){
-        return timeOfWork/timeAll/cores.size();
+
+    public void setCores(int cores) {
+        this.cores = cores;
     }
 }

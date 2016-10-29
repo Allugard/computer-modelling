@@ -9,7 +9,11 @@ public class NodeInt {
     private int freeCore;
     private Node node;
 
-    public NodeInt(){
-
+    public NodeInt(Node node){
+        this.node=node;
+        freeCore=node.getCores();
     }
+
+
+
 }
