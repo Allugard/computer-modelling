@@ -14,6 +14,22 @@ public class NodeInt {
         freeCore=node.getCores();
     }
 
+    public void addTask(){
+        if (freeCore!=0){
+            freeCore--;
+            taskInCore++;
+        }else {
+            queue++;
+        }
+    }
 
+    public void getTask(){
+        if(queue!=0){
+            queue--;
+        }else {
+            freeCore++;
+            taskInCore--;
+        }
+    }
 
 }

@@ -1,5 +1,6 @@
 package lab3;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,4 +9,13 @@ import java.util.List;
 public class Model {
     private List <State> states;
 
+    public Model(){
+        states=new ArrayList<>();
+    }
+    public void addState(State state){
+        states.add(state);
+    }
+    public void buildTree(){
+      //TODO  while ()
+    }
 }
