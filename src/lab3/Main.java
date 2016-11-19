@@ -3,6 +3,9 @@ package lab3;
 import lab3.Node;
 import lab2.Task;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by 111 on 19.10.2016.
  */
@@ -46,8 +49,41 @@ public class Main {
         isa.addWiringNode(1,com);
 
         com.addWiringNode(1,isa);
+        NodeInt nodeInt=new NodeInt(cp);
 
-
+        for (int i = 0; i <6 ; i++) {
+            nodeInt.addTask();
+        }
+        State firstStates=new State(
+                nodeInt,
+                new NodeInt(nBridge),
+                new NodeInt(op),
+                new NodeInt(gp),
+                new NodeInt(sBridge),
+                new NodeInt(nA),
+                new NodeInt(cmd),
+                new NodeInt(cod),
+                new NodeInt(isa),
+                new NodeInt(com)
+        );
+        State firstState=new State(
+                nodeInt,
+                new NodeInt(nBridge),
+                new NodeInt(op),
+                new NodeInt(gp),
+                new NodeInt(sBridge),
+                new NodeInt(nA),
+                new NodeInt(cmd),
+                new NodeInt(cod),
+                new NodeInt(isa),
+                new NodeInt(com)
+                );
+        Model model=new Model();
+        Set<State>states=new HashSet<>();
+        states.add(firstState);
+        states.add(firstStates);
+        System.out.println(states);
+       // model.buildTree(firstState,secondState);
 
     }
 }

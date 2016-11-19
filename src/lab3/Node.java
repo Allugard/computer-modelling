@@ -80,4 +80,12 @@ public class Node {
     public void setCores(int cores) {
         this.cores = cores;
     }
+
+    public Map<Double, Node> getWiringNodes() {
+        return wiringNodes;
+    }
+
+    public void setWiringNodes(Map<Double, Node> wiringNodes) {
+        this.wiringNodes = wiringNodes;
+    }
 }
