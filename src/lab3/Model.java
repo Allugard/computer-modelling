@@ -21,10 +21,15 @@ public class Model {
         states.add(state);
 
         if (state.getWiringStates().isEmpty()){
-            
+            //NodeInt [] nodeInts=state.getNodeInts();
+            for (int i = 0; i <state.getNodeInts().length ; i++) {
+                //NodeInt [] nodeInts=new NodeInt[state.getNodeInts().length];
+                //System.arraycopy(state.getNodeInts(),0,nodeInts,0,nodeInts.length);
+                NodeInt [] nodeInts=Arrays.copyOf(state.getNodeInts(),state.getNodeInts().length);
+                for (Node node:nodeInts[i].getNode().getWiringNodes().values()) {
 
-
-
+                }
+            }
         }
 
         /*for (State state1:states

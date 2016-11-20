@@ -32,6 +32,10 @@ public class NodeInt {
         }
     }
 
+    public Node getNode() {
+        return node;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

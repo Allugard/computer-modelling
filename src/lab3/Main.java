@@ -3,8 +3,7 @@ package lab3;
 import lab3.Node;
 import lab2.Task;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by 111 on 19.10.2016.
@@ -79,11 +78,14 @@ public class Main {
                 new NodeInt(com)
                 );
         Model model=new Model();
-        Set<State>states=new HashSet<>();
-        states.add(firstState);
-        states.add(firstStates);
-        System.out.println(states);
-       // model.buildTree(firstState,secondState);
+        //Set<State>states=new HashSet<>();
+     /*   //List<State> states=new ArrayList<>();
+
+       // states.add(firstState);
+        //states.add(firstStates);
+       // System.out.println(states);
+       // System.out.println( states.contains(firstStates));
+       // model.buildTree(firstState);*/
 
     }
 }
