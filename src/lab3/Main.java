@@ -50,7 +50,7 @@ public class Main {
         com.addWiringNode(1,isa);
         NodeInt nodeInt=new NodeInt(cp);
 
-        for (int i = 0; i <6 ; i++) {
+        for (int i = 0; i <1 ; i++) {
             nodeInt.addTask();
         }
         State firstState=new State(
@@ -65,12 +65,11 @@ public class Main {
                 new NodeInt(isa),
                 new NodeInt(com)
                 );
-
-        Node cpu=new Node("CPU",1,21);
+      /*  Node cpu=new Node("CPU",1,21);
         Node northBridge=new Node("nBridge",1,1);
         Node ram=new Node("RAM" , 0.05,1);
 
-        cpu.addWiringNode(1,northBridge);
+        cpu.addWiringNode(1,ram);
 
         northBridge.addWiringNode(0.5,cpu);
         northBridge.addWiringNode(1,ram);
@@ -81,23 +80,17 @@ public class Main {
         NodeInt nodeInt1=new NodeInt(cpu);
         nodeInt1.addTask();
         nodeInt1.addTask();
-        nodeInt1.addTask();
-        nodeInt1.addTask();
-        nodeInt1.addTask();
-        nodeInt1.addTask();
 
         State testState=new State(
                 nodeInt1,
                 new NodeInt(northBridge),
                 new NodeInt(ram)
-        );
+        );*/
 
         Model model=new Model();
-        long time=System.currentTimeMillis();
         model.buildTree(firstState);
-        long time1=System.currentTimeMillis();
-        long res=time1-time;
-        System.out.println(res);
+        model.printTree(firstState);
+        model.solve();
 
     }
 }

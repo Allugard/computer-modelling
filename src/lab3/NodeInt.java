@@ -71,11 +71,10 @@ public class NodeInt implements Cloneable {
 
     @Override
     public String toString() {
-        return "NodeInt{" +
-                "queue=" + queue +
-                ", taskInCore=" + taskInCore +
-                ", freeCore=" + freeCore +
-                ", node=" + node +
-                '}';
+        return node.getName() +
+                "<" + queue +
+                "," + taskInCore +
+                "," + freeCore +
+                ">";
     }
 }

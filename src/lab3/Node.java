@@ -32,6 +32,14 @@ public class Node {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public double getMu(){
         return mu;
     }
@@ -87,5 +95,21 @@ public class Node {
 
     public void setWiringNodes(Map<Double, Node> wiringNodes) {
         this.wiringNodes = wiringNodes;
+    }
+
+    public double getKeyByValue(Node node) {
+        double buf=0;
+        Object[]bufArray= wiringNodes.keySet().toArray();
+        for (int i = 0; i <bufArray.length ; i++) {
+            if (wiringNodes.get(bufArray[i])==node){
+                if(i==0){
+                    buf=(Double)bufArray[i];
+                }else {
+                    buf=(Double) bufArray[i]-(Double) bufArray[i-1];
+                }
+                break;
+            }
+        }
+        return buf;
     }
 }

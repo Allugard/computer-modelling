@@ -10,28 +10,25 @@ public class Model {
     private Set <State> states;
     static int count=0;
     public Model(){
-        //states=new ArrayList<>();
-        states=new HashSet<>();
+        states=new LinkedHashSet<>();
     }
     public void addState(State state){
         states.add(state);
     }
 
     public void buildTree(State state) throws CloneNotSupportedException {
-    //    System.out.println(count);
-    //    count++;
+      //  System.out.println(count);
+      //  count++;
         states.add(state);
-        if (state.getWiringStates().isEmpty()){
-            //NodeInt [] nodeInts=state.getNodeInts();
+        if (state.getWiringStatesOut().isEmpty()){
             for (int i = 0; i <state.getNodeInts().length ; i++) {
                 if(!state.getNodeInts()[i].isEmptyCores()) {
                     for (Node node : state.getNodeInts()[i].getNode().getWiringNodes().values()) {
-                       // NodeInt [] nodeInts=new NodeInt[state.getNodeInts().length];
-                        //System.arraycopy(state.getNodeInts(),0,nodeInts,0,nodeInts.length);
-
                         NodeInt[] nodeInts = Arrays.copyOf(state.getNodeInts(), state.getNodeInts().length);
                         nodeInts[i]=(NodeInt) nodeInts[i].clone();
                         nodeInts[i].getTask();
+                        double intensity=state.getNodeInts()[i].getNode().getMu();
+                        double probability=state.getNodeInts()[i].getNode().getKeyByValue(node);
                         for (int j = 0; j <nodeInts.length ; j++) {
                             if(nodeInts[j].getNode()==node){
                                 nodeInts[j]=(NodeInt) nodeInts[j].clone();
@@ -41,11 +38,13 @@ public class Model {
                         }
                         State bufState=new State(nodeInts);
                         if(!states.contains(bufState)) {
-                            state.addWiringState(bufState);
+                            state.addWiringStateOut(bufState,probability,intensity);
+                            bufState.addWiringStateIn(state);
                             buildTree(bufState);
                         }else {
                             bufState=findExistingState(bufState);
-                            state.addWiringState(bufState);
+                            state.addWiringStateOut(bufState,probability,intensity);
+                            bufState.addWiringStateIn(state);
                         }
                     }
                 }
@@ -59,6 +58,7 @@ public class Model {
             State bufState= (State) it.next();
             if(bufState.equals(state)){
                 state=bufState;
+                state.decCount();
                 break;
             }
         }
@@ -66,4 +66,14 @@ public class Model {
     }
 
 
+    public void printTree(State firstState) {
+        for (State state:states
+             ) {
+            System.out.println(state);
+        }
+    }
+
+    public void solve() {
+
+    }
 }
