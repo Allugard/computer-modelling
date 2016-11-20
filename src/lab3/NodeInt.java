@@ -3,7 +3,7 @@ package lab3;
 /**
  * Created by 111 on 29.10.2016.
  */
-public class NodeInt {
+public class NodeInt implements Cloneable {
     private int queue;
     private int taskInCore;
     private int freeCore;
@@ -31,9 +31,21 @@ public class NodeInt {
             taskInCore--;
         }
     }
+    public boolean isEmptyCores(){
+        if (taskInCore==0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public Node getNode() {
         return node;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

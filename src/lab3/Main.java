@@ -9,7 +9,7 @@ import java.util.*;
  * Created by 111 on 19.10.2016.
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         Node cp=new Node("CPU",1,3);
         Node nBridge=new Node("nBridge",1,1);
         Node op=new Node("RAM" , 0.05,1);
@@ -53,18 +53,6 @@ public class Main {
         for (int i = 0; i <6 ; i++) {
             nodeInt.addTask();
         }
-        State firstStates=new State(
-                nodeInt,
-                new NodeInt(nBridge),
-                new NodeInt(op),
-                new NodeInt(gp),
-                new NodeInt(sBridge),
-                new NodeInt(nA),
-                new NodeInt(cmd),
-                new NodeInt(cod),
-                new NodeInt(isa),
-                new NodeInt(com)
-        );
         State firstState=new State(
                 nodeInt,
                 new NodeInt(nBridge),
@@ -77,15 +65,39 @@ public class Main {
                 new NodeInt(isa),
                 new NodeInt(com)
                 );
-        Model model=new Model();
-        //Set<State>states=new HashSet<>();
-     /*   //List<State> states=new ArrayList<>();
 
-       // states.add(firstState);
-        //states.add(firstStates);
-       // System.out.println(states);
-       // System.out.println( states.contains(firstStates));
-       // model.buildTree(firstState);*/
+        Node cpu=new Node("CPU",1,21);
+        Node northBridge=new Node("nBridge",1,1);
+        Node ram=new Node("RAM" , 0.05,1);
+
+        cpu.addWiringNode(1,northBridge);
+
+        northBridge.addWiringNode(0.5,cpu);
+        northBridge.addWiringNode(1,ram);
+
+        ram.addWiringNode(1,northBridge);
+
+
+        NodeInt nodeInt1=new NodeInt(cpu);
+        nodeInt1.addTask();
+        nodeInt1.addTask();
+        nodeInt1.addTask();
+        nodeInt1.addTask();
+        nodeInt1.addTask();
+        nodeInt1.addTask();
+
+        State testState=new State(
+                nodeInt1,
+                new NodeInt(northBridge),
+                new NodeInt(ram)
+        );
+
+        Model model=new Model();
+        long time=System.currentTimeMillis();
+        model.buildTree(firstState);
+        long time1=System.currentTimeMillis();
+        long res=time1-time;
+        System.out.println(res);
 
     }
 }

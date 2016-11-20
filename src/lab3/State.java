@@ -63,7 +63,7 @@ public class State {
             node+=nodeInts[i]+"\n";
         }
         return "State{" +
-                "wiringStates=" + wiringStates +
+         //       "wiringStates=" + wiringStates +
                 "\nNodes: \n"+
                 node+
                 '}';
