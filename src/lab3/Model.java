@@ -27,7 +27,7 @@ public class Model {
                         NodeInt[] nodeInts = Arrays.copyOf(state.getNodeInts(), state.getNodeInts().length);
                         nodeInts[i]=(NodeInt) nodeInts[i].clone();
                         nodeInts[i].getTask();
-                        double intensity=state.getNodeInts()[i].getNode().getMu();
+                       // double intensity=state.getNodeInts()[i].getNode().getMu();
                         double probability=state.getNodeInts()[i].getNode().getKeyByValue(node);
                         for (int j = 0; j <nodeInts.length ; j++) {
                             if(nodeInts[j].getNode()==node){
@@ -38,12 +38,12 @@ public class Model {
                         }
                         State bufState=new State(nodeInts);
                         if(!states.contains(bufState)) {
-                            state.addWiringStateOut(bufState,probability,intensity);
+                            state.addWiringStateOut(bufState,probability,state.getNodeInts()[i].getNode());
                             bufState.addWiringStateIn(state);
                             buildTree(bufState);
                         }else {
                             bufState=findExistingState(bufState);
-                            state.addWiringStateOut(bufState,probability,intensity);
+                            state.addWiringStateOut(bufState,probability,state.getNodeInts()[i].getNode());
                             bufState.addWiringStateIn(state);
                         }
                     }
@@ -75,5 +75,10 @@ public class Model {
 
     public void solve() {
 
+        states.forEach(state -> state.solveProbabilityStaying());
+        states.forEach(state -> state.calculateR());
     }
+
+
+
 }

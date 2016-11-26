@@ -11,6 +11,9 @@ public class State {
     private List <State> wiringStatesIn;
     private String name="M";
     private static int count=0;
+    private double probabilityStaying=0;
+    double dt=0.1;
+
 
     public State(NodeInt ... nodeInt){
         name+=count;
@@ -22,8 +25,8 @@ public class State {
     public void decCount(){
         count--;
     }
-    public void addWiringStateOut(State state, double probability, double intensity){
-        wiringStatesOut.put(state,new IntensityOfTransition(probability, intensity));
+    public void addWiringStateOut(State state, double probability, Node node){
+        wiringStatesOut.put(state,new IntensityOfTransition(probability, node));
     }
 
     public Map<State, IntensityOfTransition> getWiringStatesOut() {
@@ -82,14 +85,41 @@ public class State {
     public String toString() {
         String b=name+Arrays.toString(nodeInts)+"{\n    In:";
         for (State state:wiringStatesOut.keySet()) {
-            b+=state.getName()+"("+state.getWiringStatesOut().get(this).getIntensity()+","+state.getWiringStatesOut().get(this).getProbability()+")";
+            b+=state.getName()+"("+state.getWiringStatesOut().get(this).getNode().getMu()+","+state.getWiringStatesOut().get(this).getProbability()+")";
         }
         b+="\n    Out:";
         for (State state:wiringStatesIn) {
-            b+=state.getName()+"("+wiringStatesOut.get(state).getIntensity()+","+wiringStatesOut.get(state).getProbability()+")";
+            b+=state.getName()+"("+wiringStatesOut.get(state).getNode().getMu()+","+wiringStatesOut.get(state).getProbability()+")";
         }
         b+="\n}";
         return b;
+    }
+
+    public void solveProbabilityStaying() {
+        double lambda=0;
+        Set<Node>bufSetNode=new HashSet<>();
+        for (IntensityOfTransition intensityOfTransition:wiringStatesOut.values()) {
+            if (!bufSetNode.contains(intensityOfTransition.getNode())){
+                lambda+=intensityOfTransition.getNode().getMu();
+                bufSetNode.add(intensityOfTransition.getNode());
+            }
+        }
+        probabilityStaying=Math.pow(Math.E,(-lambda*dt));
+    }
+
+    public void calculateR() {
+        Map<Node,Double> auxiliaryVar=new HashMap<>();
+        for (IntensityOfTransition intensityOfTransition:wiringStatesOut.values()) {
+            auxiliaryVar.put(intensityOfTransition.getNode(),(1-Math.pow(Math.E,(-dt*intensityOfTransition.getNode().getMu()))));
+        }
+        double sum=0;
+        for (Double buf:auxiliaryVar.values()) {
+            sum+=buf;
+        }
+        for (IntensityOfTransition intensityOfTransition:wiringStatesOut.values()) {
+            double buf=probabilityStaying*auxiliaryVar.get(intensityOfTransition.getNode())/sum;
+            intensityOfTransition.setR(buf);
+        }
     }
 
     /*@Override
@@ -104,13 +134,14 @@ public class State {
                 node+
                 '}';
     }*/
-    class IntensityOfTransition{
+    private class IntensityOfTransition{
         private double probability;
-        private double intensity;
+        private Node node;
+        private double r;
 
-        public IntensityOfTransition(double probability, double intensity) {
+        public IntensityOfTransition(double probability, Node node) {
             this.probability = probability;
-            this.intensity = intensity;
+            this.node = node;
         }
 
         public double getProbability() {
@@ -121,12 +152,20 @@ public class State {
             this.probability = probability;
         }
 
-        public double getIntensity() {
-            return intensity;
+        public Node getNode() {
+            return node;
         }
 
-        public void setIntensity(double intensity) {
-            this.intensity = intensity;
+        public void setNode(Node node) {
+            this.node = node;
+        }
+
+        public double getR() {
+            return r;
+        }
+
+        public void setR(double r) {
+            this.r = r;
         }
     }
 }

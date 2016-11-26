@@ -50,7 +50,7 @@ public class Main {
         com.addWiringNode(1,isa);
         NodeInt nodeInt=new NodeInt(cp);
 
-        for (int i = 0; i <1 ; i++) {
+        for (int i = 0; i <2 ; i++) {
             nodeInt.addTask();
         }
         State firstState=new State(
