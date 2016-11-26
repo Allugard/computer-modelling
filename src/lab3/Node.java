@@ -14,6 +14,7 @@ public class Node {
     private int cores;
     private double mu;
     private List <Task> queue;
+    private double p;
 
     public Node(String name, double mu, int cores) {
         this.name = name;
@@ -23,7 +24,13 @@ public class Node {
         this.cores=cores;
     }
 
+    public double getP() {
+        return p;
+    }
 
+    public void incP(double p) {
+        this.p += p;
+    }
 
     public void addWiringNode(double p, Node node){
         wiringNodes.put(p,node);
@@ -69,12 +76,7 @@ public class Node {
         queue.remove(0);
     }
 
-    @Override
-    public String toString() {
-        return "Node{" +
-                "name='" + name + '\'' +
-                '}';
-    }
+
 
 
     public void addTaskToQueue(Task task) {
@@ -127,5 +129,13 @@ public class Node {
     @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "name='" + name + '\'' +
+                ", p=" + p +
+                '}';
     }
 }

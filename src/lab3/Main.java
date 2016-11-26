@@ -3,6 +3,7 @@ package lab3;
 import lab3.Node;
 import lab2.Task;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -20,6 +21,18 @@ public class Main {
         Node cod=new Node("COD",0.005,1);
         Node isa=new Node("ISA",0.05,1);
         Node com=new Node("COM",0.003,1);
+
+        List<Node>nodes=new ArrayList<Node>();
+        nodes.add(cp);
+        nodes.add(op);
+        nodes.add(nBridge);
+        nodes.add(gp);
+        nodes.add(sBridge);
+        nodes.add(nA);
+        nodes.add(cmd);
+        nodes.add(cod);
+        nodes.add(isa);
+        nodes.add(com);
 
         cp.addWiringNode(1,nBridge);
 
@@ -50,7 +63,7 @@ public class Main {
         com.addWiringNode(1,isa);
         NodeInt nodeInt=new NodeInt(cp);
 
-        for (int i = 0; i <2 ; i++) {
+        for (int i = 0; i <1 ; i++) {
             nodeInt.addTask();
         }
         State firstState=new State(
@@ -65,32 +78,12 @@ public class Main {
                 new NodeInt(isa),
                 new NodeInt(com)
                 );
-      /*  Node cpu=new Node("CPU",1,21);
-        Node northBridge=new Node("nBridge",1,1);
-        Node ram=new Node("RAM" , 0.05,1);
 
-        cpu.addWiringNode(1,ram);
-
-        northBridge.addWiringNode(0.5,cpu);
-        northBridge.addWiringNode(1,ram);
-
-        ram.addWiringNode(1,northBridge);
-
-
-        NodeInt nodeInt1=new NodeInt(cpu);
-        nodeInt1.addTask();
-        nodeInt1.addTask();
-
-        State testState=new State(
-                nodeInt1,
-                new NodeInt(northBridge),
-                new NodeInt(ram)
-        );*/
 
         Model model=new Model();
         model.buildTree(firstState);
-        model.printTree(firstState);
+        //model.printTree(firstState);
         model.solve();
-
+        nodes.forEach(node -> System.out.println(node));
     }
 }

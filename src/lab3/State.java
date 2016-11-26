@@ -22,6 +22,9 @@ public class State {
         wiringStatesOut =new HashMap<>();
         wiringStatesIn =new ArrayList<>();
     }
+    public int genNumberName(){
+        return Integer.parseInt(name.substring(1));
+    }
     public void decCount(){
         count--;
     }
@@ -56,6 +59,15 @@ public class State {
     public void setNodeInts(NodeInt[] nodeInts) {
         this.nodeInts = nodeInts;
     }
+
+    public double getProbabilityStaying() {
+        return probabilityStaying;
+    }
+
+    public void setProbabilityStaying(double probabilityStaying) {
+        this.probabilityStaying = probabilityStaying;
+    }
+
     /*@Override
     public String toString() {
         return "State{" +
@@ -117,8 +129,12 @@ public class State {
             sum+=buf;
         }
         for (IntensityOfTransition intensityOfTransition:wiringStatesOut.values()) {
-            double buf=probabilityStaying*auxiliaryVar.get(intensityOfTransition.getNode())/sum;
+            double buf=intensityOfTransition.getProbability()*probabilityStaying*auxiliaryVar.get(intensityOfTransition.getNode())/sum;
             intensityOfTransition.setR(buf);
+        }
+        probabilityStaying=1;
+        for (IntensityOfTransition intensityOfTransition:wiringStatesOut.values()) {
+            probabilityStaying-=intensityOfTransition.getR();
         }
     }
 
@@ -134,7 +150,7 @@ public class State {
                 node+
                 '}';
     }*/
-    private class IntensityOfTransition{
+    public class IntensityOfTransition{
         private double probability;
         private Node node;
         private double r;
