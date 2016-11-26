@@ -112,6 +112,6 @@ public class Node {
         timeOfWork=timeOfWork+timeExec-timeNow;
     }
     public double getWork(double timeAll){
-        return timeOfWork/timeAll/cores.size();
+        return timeOfWork/timeAll;
     }
 }
