@@ -1,6 +1,5 @@
 package lab3;
 
-import Jama.Matrix;
 
 import java.util.*;
 

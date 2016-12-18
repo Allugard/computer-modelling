@@ -8,10 +8,11 @@ import java.util.*;
 
 /**
  * Created by 111 on 19.10.2016.
+ *
  */
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException {
-        Node cp=new Node("CPU",1,3);
+        Node cp=new Node("CPU",0.1,3);
         Node nBridge=new Node("nBridge",1,1);
         Node op=new Node("RAM" , 0.05,1);
         Node gp=new Node("GPU",0.1,1);
@@ -63,7 +64,7 @@ public class Main {
         com.addWiringNode(1,isa);
         NodeInt nodeInt=new NodeInt(cp);
 
-        for (int i = 0; i <1 ; i++) {
+        for (int i = 0; i <5 ; i++) {
             nodeInt.addTask();
         }
         State firstState=new State(
@@ -82,8 +83,12 @@ public class Main {
 
         Model model=new Model();
         model.buildTree(firstState);
-        //model.printTree(firstState);
+     //   model.printTree(firstState);
         model.solve();
-        nodes.forEach(node -> System.out.println(node));
+        for (Node node : nodes) {
+            System.out.println(node);
+        }
+      //  System.out.println("\nlab2\n");
+      //  lab2.Main.main(null);
     }
 }

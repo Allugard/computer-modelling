@@ -32,11 +32,7 @@ public class NodeInt implements Cloneable {
         }
     }
     public boolean isEmptyCores(){
-        if (taskInCore==0){
-            return true;
-        }else {
-            return false;
-        }
+        return  taskInCore==0;
     }
 
     public Node getNode() {

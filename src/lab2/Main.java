@@ -6,7 +6,7 @@ package lab2;
 public class Main {
     public static void main(String[] args) {
         PetriNet petriNet=new PetriNet();
-        int numberTask =1;
+        int numberTask =5;
         Node cp=new Node("CPU",1,new Core(),new Core(),new Core());
         Node nBridge=new Node("nBridge",1,new Core());
         Node op=new Node("RAM",0.05,new Core());
