@@ -17,10 +17,10 @@ public class Main {
             for (int j = 0; j <matrix[i].length; j++) {
                 matrix[i][j]=1./matrix[i][j];
             }
-            System.out.println(Arrays.toString(matrix[i]));
+//            System.out.println(Arrays.toString(matrix[i]));
         }
-        System.out.println();
-        String msg="";
+//        System.out.println();
+        String msg="The longest way:\n";
         msg=searchWay(matrix,msg);
         System.out.println(msg);
     }
@@ -98,9 +98,6 @@ public class Main {
             }
         }
         return b;
-
-
-
     }
 
     private static int[] findCurrrenElement(double[][] matr) {
@@ -126,7 +123,7 @@ public class Main {
     }
 
     private static double findMaxColumn(double[][] matr, int j, int k) {
-        double a=Integer.MIN_VALUE;
+        double a=Double.MIN_VALUE;
         for (int i = 0; i<matr.length ; i++) {
             if (i!=j&&i!=k&&matr[i][j]>a){
                 a=matr[i][j];
@@ -136,7 +133,7 @@ public class Main {
     }
 
     private static double findMaxRow(double[][] matr, int i, int k) {
-        double a=Integer.MIN_VALUE;
+        double a=Double.MIN_VALUE;
         for (int j = 0; j <matr.length ; j++) {
             if (i!=j&&j!=k&&matr[i][j]>a){
                 a=matr[i][j];
@@ -150,7 +147,7 @@ public class Main {
         for (int i = 0; i <matr.length ; i++) {
             a[i]=Double.MAX_VALUE;
             for (int j = 0; j <matr.length ; j++) {
-                if(a[i]>matr[i][j] && matr[i][j]>0){
+                if(a[i]>matr[i][j]){
                     a[i]=matr[i][j];
                 }
             }
@@ -163,7 +160,7 @@ public class Main {
         for (int i = 0; i <matr.length ; i++) {
             a[i]=Double.MAX_VALUE;
             for (int j = 0; j <matr.length ; j++) {
-                if(a[i]>matr[j][i] && matr[j][i]!=Double.NaN){
+                if(a[i]>matr[j][i]){
                     a[i]=matr[j][i];
                 }
             }
