@@ -16,7 +16,6 @@ public class Processor {
     }
 
     public void nullTask(){
-        //System.out.println("не решена, ска. И вообще, иди нахуй пидар ебаный");
         task=null;
     }
     public boolean isEmpty(){
